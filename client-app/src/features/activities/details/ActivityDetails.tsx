@@ -7,33 +7,35 @@ import {
     Image,
     Button,
 } from 'semantic-ui-react'
-import { Activity } from '../../../app/models/activity'
+import { useStore } from '../../../app/stores/store';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
 
-interface Props {
-    activity: Activity,
-    cancelSelectActivity: () => void;
-    openForm: (id: string) => void;
-}
+function ActivityDetails() {
+    const { activityStore } = useStore();
+    const { selectedActivity, openForm, cancelSelectedActivity } = activityStore;
 
-export default function ActivityDetails({ activity, cancelSelectActivity, openForm }: Props) {
+    if (!selectedActivity) return <LoadingComponent />;
+
     return (
         <Card fluid>
-            <Image src={`/assests/categoryImages/${activity.category}.jpg`} />
+            <Image src={`/assests/categoryImages/${selectedActivity.category}.jpg`} />
             <CardContent>
-                <CardHeader>{activity.title}</CardHeader>
+                <CardHeader>{selectedActivity.title}</CardHeader>
                 <CardMeta>
-                    <span>{activity.date}</span>
+                    <span>{selectedActivity.date}</span>
                 </CardMeta>
                 <CardDescription>
-                    {activity.description}
+                    {selectedActivity.description}
                 </CardDescription>
             </CardContent>
             <CardContent extra>
                 <Button.Group widths={2}>
-                    <Button basic color='blue' content='Edit' onClick={() => openForm(activity.activityID)}></Button>
-                    <Button basic color='grey' content='Cancel' onClick={cancelSelectActivity}></Button>
+                    <Button basic color='blue' content='Edit' onClick={() => openForm(selectedActivity.activityID)}></Button>
+                    <Button basic color='grey' content='Cancel' onClick={cancelSelectedActivity}></Button>
                 </Button.Group>
             </CardContent>
         </Card>
     )
 }
+
+export default ActivityDetails;

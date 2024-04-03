@@ -8,9 +8,7 @@ namespace Domain
         [Key]
         public Guid ActivityID { get; set; }
         [Column(TypeName = "nvarchar(500)")]
-        [Required]
         public string Title { get; set; }
-        [Required]
         public DateTime Date { get; set; }
         [Column(TypeName = "nvarchar(2000)")]
         public string Description { get; set; }

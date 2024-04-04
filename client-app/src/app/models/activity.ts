@@ -1,7 +1,7 @@
 export interface Activity {
     activityID: string,
     title: string,
-    date: string,
+    date: Date | null,
     description: string,
     category: string,
     city: string,
